@@ -1,8 +1,12 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "Second hexlet project",
+  "description": "Second level frontend hexlet project",
   "main": "index.js",
+  "type": "module",
+  "bin": {
+    "gendiff": "bin/gendiff.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
