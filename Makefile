@@ -4,3 +4,5 @@ install:
 	npm ci
 link:
 	npm link
+test:
+	npm test
