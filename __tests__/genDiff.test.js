@@ -15,8 +15,8 @@ test('main flow', () => {
     '- proxy': '123.234.53.22',
     '- timeout': 50,
     '+ timeout': 20,
-    '+ verbose': true
+    '+ verbose': true,
   };
 
-  expect(genDiff(filepath1, filepath2)).toBe(JSON.stringify(expected, null, '\t'))
-})
+  expect(genDiff(filepath1, filepath2)).toBe(JSON.stringify(expected, null, '\t'));
+});
