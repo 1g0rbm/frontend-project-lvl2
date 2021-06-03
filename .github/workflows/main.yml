@@ -4,36 +4,36 @@ name: CI
 
 # Controls when the action will run.
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
+    # Triggers the workflow on push or pull request events but only for the main branch
+    push:
+        branches: [ main ]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    # This workflow contains a single job called "build"
+    build:
+        # The type of runner that the job will run on
+        runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+        # Steps represent a sequence of tasks that will be executed as part of the job
+        steps:
+            # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+            -   uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      -   name: Install dependencies
-          run: make install
-      -   name: Check codestyle
-          run: make lint
-      -   name: Run tests
-          run: make test
-      - name: Test & publish code coverage
-        uses: paambaati/codeclimate-action@v2.7.5
-        env:
-            CC_TEST_REPORTER_ID: ${{ secrets.CodeClimate }}
-        with:
-            coverageCommand: make test-coverage
-            debug: true
+            # Runs a single command using the runners shell
+            -   name: Install dependencies
+                run: make install
+            -   name: Check codestyle
+                run: make lint
+            -   name: Run tests
+                run: make test
+            -   name: Test & publish code coverage
+                uses: paambaati/codeclimate-action@v2.7.5
+                env:
+                    CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE }}
+                with:
+                    coverageCommand: make test-coverage
+                    debug: true
