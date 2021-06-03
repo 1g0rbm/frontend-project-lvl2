@@ -14,6 +14,11 @@ const normalizePath = (path) => {
 
 const getFormattedDiff = (diff) => JSON.stringify(diff, null, '\t');
 
+const getFileData = (path) => {
+  const file = readFileSync(path);
+  return JSON.parse(file.toString());
+};
+
 const genDiff = (filepath1, filepath2) => {
   const normalisedFilepath1 = normalizePath(filepath1);
   if (!normalisedFilepath1) {
@@ -24,11 +29,8 @@ const genDiff = (filepath1, filepath2) => {
     throw new Error(`<filepath2> value "${filepath2}" is incorrect.`);
   }
 
-  const file1 = readFileSync(normalisedFilepath1);
-  const file2 = readFileSync(normalisedFilepath2);
-
-  const data1 = JSON.parse(file1.toString());
-  const data2 = JSON.parse(file2.toString());
+  const data1 = getFileData(normalisedFilepath1);
+  const data2 = getFileData(normalisedFilepath2);
 
   const keys = _.uniq(_.sortBy([...Object.keys(data1), ...Object.keys(data2)]));
   const diff = keys
@@ -40,11 +42,7 @@ const genDiff = (filepath1, filepath2) => {
         return [...acc, [`  ${key}`, val1]];
       }
 
-      return [
-        ...acc,
-        [`- ${key}`, val1],
-        [`+ ${key}`, val2],
-      ];
+      return [...acc, [`- ${key}`, val1], [`+ ${key}`, val2]];
     }, [])
     .filter(([, val]) => val !== undefined)
     .reduce((acc, [key, val]) => ({ ...acc, ...{ [key]: val } }), {});
