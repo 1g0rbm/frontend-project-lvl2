@@ -31,6 +31,32 @@ test('base json flow', () => {
     }, null, '\t'));
 });
 
+test('base yml flow', () => {
+  const filepath1 = join(__dirname, '__fixtures__', 'file1.yml');
+  const filepath2 = join(__dirname, '__fixtures__', 'file2.yaml');
+
+  expect(genDiff(filepath1, filepath2))
+    .toBe(JSON.stringify({
+      '- follow': false,
+      '  host': 'hexlet.io',
+      '- proxy': '123.234.53.22',
+      '- timeout': 50,
+      '+ timeout': 20,
+      '+ verbose': true,
+    }, null, '\t'));
+
+  expect(genDiff(filepath2, filepath1))
+    .toBe(JSON.stringify({
+      '+ follow': false,
+      '  host': 'hexlet.io',
+      '+ proxy': '123.234.53.22',
+      '- timeout': 20,
+      '+ timeout': 50,
+      '- verbose': true,
+    }, null, '\t'));
+});
+
+
 test('invalid file paths', () => {
   const filepath = join(__dirname, '__fixtures__', 'file1.json');
 
