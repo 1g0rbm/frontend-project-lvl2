@@ -1,5 +1,5 @@
 import { test, expect } from '@jest/globals';
-import { getFileExt } from "../src/file";
+import { getFileExt } from '../src/file';
 
 test('get file extension test', () => {
   expect(getFileExt('file.json')).toBe('json');
@@ -11,4 +11,4 @@ test('get file extension test', () => {
   expect(getFileExt('file.test.js')).toBe('js');
 
   expect(getFileExt('file')).toBe('');
-})
+});

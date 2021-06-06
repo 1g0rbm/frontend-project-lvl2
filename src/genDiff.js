@@ -1,12 +1,14 @@
-import {normalizePath} from './file'
 import { readFileSync } from 'fs';
 import _ from 'lodash';
+import { getFileExt, normalizePath } from './file';
+import getParser from './parsers';
 
 const getFormattedDiff = (diff) => JSON.stringify(diff, null, '\t');
 
 const getFileData = (path) => {
   const file = readFileSync(path);
-  return JSON.parse(file.toString());
+  const ext = getFileExt(path);
+  return getParser(ext)(file);
 };
 
 const genDiff = (filepath1, filepath2) => {
