@@ -1,16 +1,6 @@
-import { cwd } from 'process';
-import { readFileSync, existsSync } from 'fs';
-import { join } from 'path';
+import {normalizePath} from './file'
+import { readFileSync } from 'fs';
 import _ from 'lodash';
-
-const normalizePath = (path) => {
-  if (existsSync(path)) {
-    return path;
-  }
-
-  const absolutePath = join(cwd(), path);
-  return existsSync(absolutePath) ? absolutePath : null;
-};
 
 const getFormattedDiff = (diff) => JSON.stringify(diff, null, '\t');
 

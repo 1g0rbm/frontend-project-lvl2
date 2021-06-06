@@ -12,5 +12,7 @@ lint-fix:
 	npx eslint . --fix
 test:
 	npm test
+single-test:
+	npm test -- -t '$(name)'
 test-coverage:
 	npm test -- --coverage

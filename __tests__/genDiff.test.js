@@ -56,7 +56,6 @@ test('base yml flow', () => {
     }, null, '\t'));
 });
 
-
 test('invalid file paths', () => {
   const filepath = join(__dirname, '__fixtures__', 'file1.json');
 
