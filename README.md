@@ -7,3 +7,5 @@
 ### Usage examples:
 1. **Flat json parsing**
    [![brain-even](https://asciinema.org/a/gsfYdI77BhREqsCXWVNhzsSBz.svg)](https://asciinema.org/a/gsfYdI77BhREqsCXWVNhzsSBz)
+1. **Flat yaml parsing**
+   [![brain-even](https://asciinema.org/a/VHjw1XjQUm3wwvZD054SaUbS3.svg)](https://asciinema.org/a/VHjw1XjQUm3wwvZD054SaUbS3)

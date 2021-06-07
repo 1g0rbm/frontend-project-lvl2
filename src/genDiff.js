@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import _ from 'lodash';
-import { getFileExt, normalizePath } from './file';
-import getParser from './parsers';
+import { getFileExt, normalizePath } from './file.js';
+import getParser from './parsers.js';
 
 const getFormattedDiff = (diff) => JSON.stringify(diff, null, '\t');
 
