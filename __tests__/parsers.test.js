@@ -33,5 +33,5 @@ test('parser factory test with yaml', () => {
 
 test('parser factory test with undefined ext', () => {
   expect(() => getParser('invalid'))
-    .toThrowError('There is no parser for file extension invalid');
+    .toThrowError('There is no parser for file extension "invalid"');
 });
