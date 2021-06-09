@@ -2,6 +2,45 @@ import _ from 'lodash';
 
 const possibleNodeTypes = ['added', 'removed', 'changed', 'unchanged', 'tree'];
 
+const getType = (node) => node.type;
+
+export const isAddedType = (node) => node.type === 'added';
+
+export const isRemovedType = (node) => node.type === 'removed';
+
+export const isUnchangedType = (node) => node.type === 'unchanged';
+
+export const isChangedType = (node) => node.type === 'changed';
+
+export const isTreeType = (node) => node.type === 'tree';
+
+export const getName = (node) => node.name;
+
+export const getValue = (node) => {
+  const possibleTypes = ['added', 'removed', 'unchanged', 'tree'];
+  if (!possibleTypes.includes(getType(node))) {
+    throw new Error(`Node type "${getType(node)}" is not possible for function.`);
+  }
+
+  return node.value;
+};
+
+export const getRemovedValue = (node) => {
+  if (!isChangedType(node)) {
+    throw new Error('Only "changed" type is possible for this function.');
+  }
+
+  return node.value[0];
+};
+
+export const getAddedValue = (node) => {
+  if (!isChangedType(node)) {
+    throw new Error('Only "changed" type is possible for this function.');
+  }
+
+  return node.value[1];
+};
+
 const makeNode = (name, value, type) => {
   if (!possibleNodeTypes.includes(type)) {
     throw new Error(`Undefined ast diff node type "${type}"`);
