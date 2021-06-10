@@ -12,6 +12,8 @@ export const isUnchangedType = (node) => node.type === 'unchanged';
 
 export const isChangedType = (node) => node.type === 'changed';
 
+export const isTreeType = (node) => node.type === 'tree';
+
 export const getName = (node) => node.name;
 
 export const getValue = (node) => {
