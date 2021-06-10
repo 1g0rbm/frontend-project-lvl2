@@ -8,7 +8,7 @@ import {
   isChangedType,
   isRemovedType,
   isUnchangedType,
-} from '../astDiff';
+} from '../astDiff.js';
 
 const getLvlIndent = (cnt, sign = ' ') => `${'    '.repeat(cnt - 1)}  ${sign} `;
 
