@@ -11,3 +11,5 @@
    [![brain-even](https://asciinema.org/a/VHjw1XjQUm3wwvZD054SaUbS3.svg)](https://asciinema.org/a/VHjw1XjQUm3wwvZD054SaUbS3)
 1. **Nested render**
    [![brain-even](https://asciinema.org/a/zhd6bEQovt0gpooVODwe0r4ng.svg)](https://asciinema.org/a/zhd6bEQovt0gpooVODwe0r4ng)
+1. **Plain render**
+   [![brain-even](https://asciinema.org/a/KiZjBXm3nFGa7UghjX9ovRqtG.svg)](https://asciinema.org/a/KiZjBXm3nFGa7UghjX9ovRqtG)
