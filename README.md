@@ -9,3 +9,5 @@
    [![brain-even](https://asciinema.org/a/gsfYdI77BhREqsCXWVNhzsSBz.svg)](https://asciinema.org/a/gsfYdI77BhREqsCXWVNhzsSBz)
 1. **Flat yaml parsing**
    [![brain-even](https://asciinema.org/a/VHjw1XjQUm3wwvZD054SaUbS3.svg)](https://asciinema.org/a/VHjw1XjQUm3wwvZD054SaUbS3)
+1. **Nested render**
+   [![brain-even](https://asciinema.org/a/zhd6bEQovt0gpooVODwe0r4ng.svg)](https://asciinema.org/a/zhd6bEQovt0gpooVODwe0r4ng)
