@@ -25,21 +25,17 @@ export const getValue = (node) => {
   return node.value;
 };
 
-export const getRemovedValue = (node) => {
+const getChangedValue = (node, type) => {
   if (!isChangedType(node)) {
     throw new Error('Only "changed" type is possible for this function.');
   }
 
-  return node.value[0];
+  return type === 'added' ? node.value[1] : node.value[0];
 };
 
-export const getAddedValue = (node) => {
-  if (!isChangedType(node)) {
-    throw new Error('Only "changed" type is possible for this function.');
-  }
+export const getRemovedValue = (node) => getChangedValue(node, 'removed');
 
-  return node.value[1];
-};
+export const getAddedValue = (node) => getChangedValue(node, 'added');
 
 const makeNode = (name, value, type) => {
   if (!possibleNodeTypes.includes(type)) {
