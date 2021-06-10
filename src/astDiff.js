@@ -2,9 +2,9 @@ import _ from 'lodash';
 
 const possibleNodeTypes = ['added', 'removed', 'changed', 'unchanged', 'tree'];
 
-const getType = (node) => node.type;
+export const getType = (node) => node.type;
 
-export const isAddedType = (node) => node.type === 'added';
+export const isAddedType = (node) => getType(node) === 'added';
 
 export const isRemovedType = (node) => node.type === 'removed';
 
