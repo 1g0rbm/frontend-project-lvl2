@@ -21,15 +21,15 @@ test('stylish formatter test', () => {
   });
 
   const expected = `{
-      a: AA
-    - b: BB
-    + c: {
-       - d: DD
-       - e: EE
-       + e: DD
-       + f: FF
+    a: AA
+  - b: BB
+    c: {
+      - d: DD
+      - e: EE
+      + e: DD
+      + f: FF
     }
-    + g: GG
+  + g: GG
 }`;
 
   expect(format(ast)).toBe(expected);

@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import {
   getAddedValue,
   getName,
@@ -9,31 +10,44 @@ import {
   isUnchangedType,
 } from '../astDiff';
 
-const getLvlIndent = (lvl) => '   '.repeat(lvl);
+const getLvlIndent = (cnt, sign = ' ') => `${'    '.repeat(cnt - 1)}  ${sign} `;
+
+const serialize = (value, depth) => {
+  if (!_.isObject(value)) {
+    return value;
+  }
+
+  const nested = _.keys(value).map(
+    (key) => `${getLvlIndent(depth)}${key}: ${serialize(value[key], depth + 1)}`,
+  );
+
+  return `{\n${nested.join('\n')}\n${getLvlIndent(depth - 1)}}`;
+};
 
 export default (ast) => {
-  const iter = (acc, tree, lvl) => (
+  const iter = (tree, lvl) => (
     tree.map((node) => {
       if (isAddedType(node)) {
-        return `${acc}${getLvlIndent(lvl)} + ${getName(node)}: ${getValue(node)}`;
+        return `${getLvlIndent(lvl, '+')}${getName(node)}: ${serialize(getValue(node), lvl + 1)}`;
       }
       if (isRemovedType(node)) {
-        return `${acc}${getLvlIndent(lvl)} - ${getName(node)}: ${getValue(node)}`;
+        return `${getLvlIndent(lvl, '-')}${getName(node)}: ${serialize(getValue(node), lvl + 1)}`;
       }
       if (isUnchangedType(node)) {
-        return `${acc}${getLvlIndent(lvl)}   ${getName(node)}: ${getValue(node)}`;
+        return `${getLvlIndent(lvl)}${getName(node)}: ${serialize(getValue(node), lvl)}`;
       }
       if (isChangedType(node)) {
         return [
-          `${acc}${getLvlIndent(lvl)} - ${getName(node)}: ${getRemovedValue(node)}`,
-          `${acc}${getLvlIndent(lvl)} + ${getName(node)}: ${getAddedValue(node)}`,
+          `${getLvlIndent(lvl, '-')}${getName(node)}: ${serialize(getRemovedValue(node), lvl + 1)}`,
+          `${getLvlIndent(lvl, '+')}${getName(node)}: ${serialize(getAddedValue(node), lvl + 1)}`,
         ].join('\n');
       }
 
-      const treeValue = `{\n${iter('', getValue(node), lvl + 1).join('\n')}\n ${getLvlIndent(lvl)}}`;
-      return `${acc}${getLvlIndent(lvl)} + ${getName(node)}: ${treeValue}`;
+      const treeValue = `${iter(getValue(node), lvl + 1)}`;
+      return `${getLvlIndent(lvl)}${getName(node)}: {\n${treeValue}\n${getLvlIndent(lvl)}}`;
     })
+      .join('\n')
   );
 
-  return `{\n${iter('', ast, 1).join('\n')}\n}`;
+  return `{\n${iter(ast, 1)}\n}`;
 };

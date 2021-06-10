@@ -1,4 +1,4 @@
-import { test, expect } from '@jest/globals';
+import { expect, test } from '@jest/globals';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import genDiff from '../index.js';
@@ -10,50 +10,104 @@ test('base json flow', () => {
   const filepath1 = join(__dirname, '__fixtures__', 'file1.json');
   const filepath2 = join(__dirname, '__fixtures__', 'file2.json');
 
-  expect(genDiff(filepath1, filepath2))
-    .toBe(JSON.stringify({
-      '- follow': false,
-      '  host': 'hexlet.io',
-      '- proxy': '123.234.53.22',
-      '- timeout': 50,
-      '+ timeout': 20,
-      '+ verbose': true,
-    }, null, '\t'));
+  const expected = `{
+    common: {
+      + follow: false
+        setting1: Value 1
+      - setting2: 200
+      - setting3: true
+      + setting3: null
+      + setting4: blah blah
+      + setting5: {
+            key5: value5
+        }
+        setting6: {
+            doge: {
+              - wow: 
+              + wow: so much
+            }
+            key: value
+          + ops: vops
+        }
+    }
+    group1: {
+      - baz: bas
+      + baz: bars
+        foo: bar
+      - nest: {
+            key: value
+        }
+      + nest: str
+    }
+  - group2: {
+        abc: 12345
+        deep: {
+            id: 45
+        }
+    }
+  + group3: {
+        deep: {
+            id: {
+                number: 45
+            }
+        }
+        fee: 100500
+    }
+}`;
 
-  expect(genDiff(filepath2, filepath1))
-    .toBe(JSON.stringify({
-      '+ follow': false,
-      '  host': 'hexlet.io',
-      '+ proxy': '123.234.53.22',
-      '- timeout': 20,
-      '+ timeout': 50,
-      '- verbose': true,
-    }, null, '\t'));
+  expect(genDiff(filepath1, filepath2)).toBe(expected);
 });
 
 test('base yml flow', () => {
   const filepath1 = join(__dirname, '__fixtures__', 'file1.yml');
   const filepath2 = join(__dirname, '__fixtures__', 'file2.yaml');
 
-  expect(genDiff(filepath1, filepath2))
-    .toBe(JSON.stringify({
-      '- follow': false,
-      '  host': 'hexlet.io',
-      '- proxy': '123.234.53.22',
-      '- timeout': 50,
-      '+ timeout': 20,
-      '+ verbose': true,
-    }, null, '\t'));
+  const expected = `{
+    common: {
+      + follow: false
+        setting1: Value 1
+      - setting2: 200
+      - setting3: true
+      + setting3: null
+      + setting4: blah blah
+      + setting5: {
+            key5: value5
+        }
+        setting6: {
+            doge: {
+              - wow: 
+              + wow: so much
+            }
+            key: value
+          + ops: vops
+        }
+    }
+    group1: {
+      - baz: bas
+      + baz: bars
+        foo: bar
+      - nest: {
+            key: value
+        }
+      + nest: str
+    }
+  - group2: {
+        abc: 12345
+        deep: {
+            id: 45
+        }
+    }
+  + group3: {
+        deep: {
+            id: {
+                number: 45
+            }
+        }
+        fee: 100500
+    }
+}`;
 
-  expect(genDiff(filepath2, filepath1))
-    .toBe(JSON.stringify({
-      '+ follow': false,
-      '  host': 'hexlet.io',
-      '+ proxy': '123.234.53.22',
-      '- timeout': 20,
-      '+ timeout': 50,
-      '- verbose': true,
-    }, null, '\t'));
+  expect(genDiff(filepath1, filepath2)).toBe(expected);
 });
 
 test('invalid file paths', () => {
