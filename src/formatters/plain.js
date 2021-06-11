@@ -12,16 +12,13 @@ const serialize = (value) => {
 };
 
 const format = (path, node) => {
-  const getPath = () => path;
-  const getNode = () => node;
-
   const typeFormatters = {
-    added: () => `Property '${getPath()}' was added with value: ${serialize(getValue(getNode()))}`,
-    removed: () => `Property '${getPath()}' was removed`,
+    added: () => `Property '${path}' was added with value: ${serialize(getValue(node))}`,
+    removed: () => `Property '${path}' was removed`,
     changed: () => {
-      const removed = serialize(getRemovedValue(getNode()));
-      const added = serialize(getAddedValue(getNode()));
-      return `Property '${getPath()}' was updated. From ${removed} to ${added}`;
+      const removed = serialize(getRemovedValue(node));
+      const added = serialize(getAddedValue(node));
+      return `Property '${path}' was updated. From ${removed} to ${added}`;
     },
     unchanged: () => null,
   };

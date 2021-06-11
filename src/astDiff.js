@@ -4,12 +4,6 @@ const possibleNodeTypes = ['added', 'removed', 'changed', 'unchanged', 'tree'];
 
 export const getType = (node) => node.type;
 
-export const isAddedType = (node) => getType(node) === 'added';
-
-export const isRemovedType = (node) => node.type === 'removed';
-
-export const isUnchangedType = (node) => node.type === 'unchanged';
-
 export const isChangedType = (node) => node.type === 'changed';
 
 export const isTreeType = (node) => node.type === 'tree';
