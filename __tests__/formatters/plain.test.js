@@ -4,16 +4,16 @@ import plain from '../../src/formatters/plain';
 
 test('plain formatter test', () => {
   const ast = buildDiffAst({
-    a: 'AA',
     b: 'DD',
     c: {
+      a: 'AA',
       d: 'NN',
       e: 'EE',
     },
   },
   {
-    a: 'AA',
     c: {
+      a: 'AA',
       e: 'NN',
       f: 'FF',
     },
