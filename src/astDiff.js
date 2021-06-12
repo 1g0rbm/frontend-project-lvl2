@@ -45,20 +45,20 @@ const createKeysMap = (firstTree, secondTree) => (
     .sort()
 );
 
-const treeHasKey = (key, tree) => !_.has(tree, key)
+const treeDoesNotHaveKey = (key, tree) => !_.has(tree, key);
 
-const areTheseObj = (first, second) => _.isObject(first) && _.isObject(second)
+const areTheseObj = (first, second) => _.isObject(first) && _.isObject(second);
 
 const buildDiffAst = (firstTree, secondTree) => createKeysMap(firstTree, secondTree)
   .map((key) => {
     const firstValue = _.get(firstTree, key);
     const secondValue = _.get(secondTree, key);
 
-    if (!treeHasKey(key, firstTree)) {
+    if (treeDoesNotHaveKey(key, firstTree)) {
       return makeNode(key, secondValue, 'added');
     }
 
-    if (!treeHasKey(key, secondTree)) {
+    if (treeDoesNotHaveKey(key, secondTree)) {
       return makeNode(key, firstValue, 'removed');
     }
 
