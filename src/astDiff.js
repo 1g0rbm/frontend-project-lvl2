@@ -40,9 +40,8 @@ const makeNode = (name, value, type) => {
 };
 
 const createKeysMap = (firstTree, secondTree) => (
-  _.union(Object.keys(firstTree), Object.keys(secondTree))
+  _.orderBy(_.union(Object.keys(firstTree), Object.keys(secondTree)))
     .map((key) => key.toString())
-    .sort()
 );
 
 const treeDoesNotHaveKey = (key, tree) => !_.has(tree, key);
