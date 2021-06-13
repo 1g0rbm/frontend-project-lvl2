@@ -25,13 +25,22 @@ test('base yml flow', () => {
   expect(genDiff(filepath1, filepath2)).toBe(expected);
 });
 
-test('plain parsing', () => {
+test('plain format', () => {
   const filepath1 = join(__dirname, '__fixtures__', 'file1.yml');
   const filepath2 = join(__dirname, '__fixtures__', 'file2.yaml');
 
   const expected = readFileSync(join(__dirname, '__fixtures__', 'resultPlain.txt')).toString().trim();
 
   expect(genDiff(filepath1, filepath2, 'plain')).toBe(expected);
+});
+
+test('json format', () => {
+  const filepath1 = join(__dirname, '__fixtures__', 'file1.yml');
+  const filepath2 = join(__dirname, '__fixtures__', 'file2.yaml');
+
+  const expected = readFileSync(join(__dirname, '__fixtures__', 'resultJson.json')).toString().trim();
+
+  expect(genDiff(filepath1, filepath2, 'json')).toBe(expected);
 });
 
 test('invalid file paths', () => {
