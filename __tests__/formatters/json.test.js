@@ -6,6 +6,10 @@ test('json formatter test', () => {
   const ast = buildDiffAst({
     l: 'LL',
     c: {
+      q: {
+        o: 'OO',
+        j: null,
+      },
       a: 'AA',
       v: 'VV',
       e: 'EE',
@@ -13,6 +17,9 @@ test('json formatter test', () => {
   },
   {
     c: {
+      q: {
+        j: 'JJ',
+      },
       a: 'AA',
       e: 'NN',
       z: 'ZZ',
