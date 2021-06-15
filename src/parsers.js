@@ -7,10 +7,10 @@ const parsers = {
   json: JSON.parse,
 };
 
-export default (content, format) => {
-  if (!_.has(parsers, format)) {
-    throw new Error(`There is no parser for file extension "${format}"`);
+export default (content, fileFormat) => {
+  if (!_.has(parsers, fileFormat)) {
+    throw new Error(`There is no parser for file extension "${fileFormat}"`);
   }
 
-  return _.get(parsers, format)(content);
+  return _.get(parsers, fileFormat)(content);
 };
