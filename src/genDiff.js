@@ -1,13 +1,13 @@
 import { readFileSync } from 'fs';
 import { getFileExt, normalizePath } from './file.js';
-import getParser from './parsers.js';
+import parse from './parsers.js';
 import getAstDiff from './astDiff.js';
 import render from './formatters/index.js';
 
 const getFileData = (path) => {
   const file = readFileSync(path);
   const ext = getFileExt(path);
-  return getParser(ext)(file);
+  return parse(file, ext);
 };
 
 const genDiff = (filepath1, filepath2, format = 'stylish') => {
