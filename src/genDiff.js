@@ -1,8 +1,8 @@
 import { readFileSync } from 'fs';
 import { getFileExt, normalizePath } from './file.js';
 import parse from './parsers.js';
-import getAstDiff from './astDiff.js';
-import render from './formatters/index.js';
+import buildAstDiff from './astDiff.js';
+import astToFormat from './formatters/index.js';
 
 const getFileData = (path) => {
   const file = readFileSync(path);
@@ -20,8 +20,8 @@ const genDiff = (filepath1, filepath2, format = 'stylish') => {
     throw new Error(`<filepath2> value "${filepath2}" is incorrect.`);
   }
 
-  const ast = getAstDiff(getFileData(normalisedFilepath1), getFileData(normalisedFilepath2));
-  return render(ast, format);
+  const ast = buildAstDiff(getFileData(normalisedFilepath1), getFileData(normalisedFilepath2));
+  return astToFormat(ast, format);
 };
 
 export default genDiff;
