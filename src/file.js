@@ -1,15 +1,6 @@
 import { extname, join } from 'path';
-import { existsSync, readFileSync } from 'fs';
+import { existsSync } from 'fs';
 import { cwd } from 'process';
-import _ from 'lodash';
-
-const normalizeExtension = (ext) => {
-  const extNormalizeMap = {
-    yml: 'yaml',
-  };
-
-  return _.get(extNormalizeMap, ext, ext);
-};
 
 export const normalizePath = (path) => {
   if (existsSync(path)) {
@@ -22,14 +13,5 @@ export const normalizePath = (path) => {
 
 export const getFileExt = (path) => {
   const ext = extname(path);
-  return normalizeExtension(ext.startsWith('.') ? ext.slice(1) : ext);
-};
-
-export const getFileData = (path) => {
-  const normalized = normalizePath(path);
-  if (normalized === null) {
-    throw new Error(`Invalid path: ${path}`);
-  }
-
-  return readFileSync(normalized);
+  return ext.startsWith('.') ? ext.slice(1) : ext;
 };

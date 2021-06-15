@@ -6,7 +6,7 @@ test('get file extension test', () => {
 
   expect(getFileExt('file.yaml')).toBe('yaml');
 
-  expect(getFileExt('file.yml')).toBe('yaml');
+  expect(getFileExt('file.yml')).toBe('yml');
 
   expect(getFileExt('file.test.js')).toBe('js');
 
