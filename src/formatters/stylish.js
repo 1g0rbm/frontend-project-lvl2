@@ -1,7 +1,4 @@
 import _ from 'lodash';
-import {
-  getAddedValue, getName, getRemovedValue, getType, getValue, isTreeType,
-} from '../astDiff.js';
 
 const getLvlIndent = (cnt, sign = ' ') => `${'    '.repeat(cnt - 1)}  ${sign} `;
 
@@ -17,29 +14,29 @@ const serialize = (value, depth) => {
   return `{\n${nested.join('\n')}\n${getLvlIndent(depth - 1)}}`;
 };
 
-const format = (node, lvl) => {
+const format = ({ name, value, type }, lvl) => {
   const typeFormatters = {
-    added: () => `${getLvlIndent(lvl, '+')}${getName(node)}: ${serialize(getValue(node), lvl + 1)}`,
-    removed: () => `${getLvlIndent(lvl, '-')}${getName(node)}: ${serialize(getValue(node), lvl + 1)}`,
+    added: () => `${getLvlIndent(lvl, '+')}${name}: ${serialize(value, lvl + 1)}`,
+    removed: () => `${getLvlIndent(lvl, '-')}${name}: ${serialize(value, lvl + 1)}`,
     changed: () => (
       [
-        `${getLvlIndent(lvl, '-')}${getName(node)}: ${serialize(getRemovedValue(node), lvl + 1)}`,
-        `${getLvlIndent(lvl, '+')}${getName(node)}: ${serialize(getAddedValue(node), lvl + 1)}`,
+        `${getLvlIndent(lvl, '-')}${name}: ${serialize(value[0], lvl + 1)}`,
+        `${getLvlIndent(lvl, '+')}${name}: ${serialize(value[1], lvl + 1)}`,
       ]
         .join('\n')
     ),
-    unchanged: () => `${getLvlIndent(lvl)}${getName(node)}: ${serialize(getValue(node), lvl)}`,
+    unchanged: () => `${getLvlIndent(lvl)}${name}: ${serialize(value, lvl)}`,
   };
 
-  return _.get(typeFormatters, getType(node))();
+  return _.get(typeFormatters, type)();
 };
 
 export default (ast) => {
   const iter = (tree, lvl) => (
     tree.map((node) => {
-      if (isTreeType(node)) {
-        const treeValue = `${iter(getValue(node), lvl + 1)}`;
-        return `${getLvlIndent(lvl)}${getName(node)}: {\n${treeValue}\n${getLvlIndent(lvl)}}`;
+      if (node.type === 'tree') {
+        const treeValue = `${iter(node.value, lvl + 1)}`;
+        return `${getLvlIndent(lvl)}${node.name}: {\n${treeValue}\n${getLvlIndent(lvl)}}`;
       }
 
       return format(node, lvl);
