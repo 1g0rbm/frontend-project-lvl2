@@ -17,7 +17,7 @@ const createKeysMap = (firstTree, secondTree) => (
 
 const objDoesNotHaveKey = (key, obj) => !_.has(obj, key);
 
-const areTheseObj = (first, second) => _.isObject(first) && _.isObject(second);
+const areTheseObj = (first, second) => _.isPlainObject(first) && _.isPlainObject(second);
 
 const buildDiffAst = (firstObj, secondObj) => createKeysMap(firstObj, secondObj)
   .map((key) => {
