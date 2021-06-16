@@ -40,7 +40,7 @@ const buildDiffAst = (firstObj, secondObj) => createKeysMap(firstObj, secondObj)
       );
     }
 
-    if (firstValue !== secondValue) {
+    if (!_.isEqual(firstValue, secondValue)) {
       return makeNode(key, [firstValue, secondValue], 'changed');
     }
 
