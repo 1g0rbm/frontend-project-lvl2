@@ -10,6 +10,8 @@ const makeNode = (name, value, type) => {
   return { name, value, type };
 };
 
+const makeChildrenNode = (name, children) => ({ name, children, type: 'tree' });
+
 const createKeysMap = (firstTree, secondTree) => (
   _.orderBy(_.union(Object.keys(firstTree), Object.keys(secondTree)))
     .map((key) => key.toString())
@@ -33,10 +35,9 @@ const buildDiffAst = (firstObj, secondObj) => createKeysMap(firstObj, secondObj)
     }
 
     if (areTheseObj(firstValue, secondValue)) {
-      return makeNode(
+      return makeChildrenNode(
         key,
         buildDiffAst(firstValue, secondValue),
-        'tree',
       );
     }
 

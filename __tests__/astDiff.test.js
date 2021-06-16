@@ -35,7 +35,7 @@ test('makeNode test', () => {
       {
         name: 'c',
         type: 'tree',
-        value: [
+        children: [
           {
             name: 'd',
             type: 'removed',

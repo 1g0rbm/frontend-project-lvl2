@@ -35,7 +35,7 @@ export default (ast) => {
   const iter = (tree, lvl) => (
     tree.map((node) => {
       if (node.type === 'tree') {
-        const treeValue = `${iter(node.value, lvl + 1)}`;
+        const treeValue = `${iter(node.children, lvl + 1)}`;
         return `${getLvlIndent(lvl)}${node.name}: {\n${treeValue}\n${getLvlIndent(lvl)}}`;
       }
 

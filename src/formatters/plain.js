@@ -29,7 +29,7 @@ export default (ast) => {
       .map((node) => {
         const fieldPath = path ? `${path}.${node.name}` : node.name;
         if (node.type === 'tree') {
-          return iter(node.value, fieldPath).join('\n');
+          return iter(node.children, fieldPath).join('\n');
         }
 
         return format(fieldPath, node);
