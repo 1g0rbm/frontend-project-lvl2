@@ -7,44 +7,41 @@ import genDiff from '../index.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-test('base json flow', () => {
-  const filepath1 = join(__dirname, '__fixtures__', 'file1.json');
-  const filepath2 = join(__dirname, '__fixtures__', 'file2.json');
+const getFullPath = (fileName) => join(__dirname, '__fixtures__', fileName);
 
-  const expected = readFileSync(join(__dirname, '__fixtures__', 'resultStylish.txt')).toString().trim();
-
-  expect(genDiff(filepath1, filepath2)).toBe(expected);
-});
-
-test('base yml flow', () => {
-  const filepath1 = join(__dirname, '__fixtures__', 'file1.yml');
-  const filepath2 = join(__dirname, '__fixtures__', 'file2.yaml');
-
-  const expected = readFileSync(join(__dirname, '__fixtures__', 'resultStylish.txt')).toString().trim();
-
-  expect(genDiff(filepath1, filepath2)).toBe(expected);
-});
-
-test('plain format', () => {
-  const filepath1 = join(__dirname, '__fixtures__', 'file1.yml');
-  const filepath2 = join(__dirname, '__fixtures__', 'file2.yaml');
-
-  const expected = readFileSync(join(__dirname, '__fixtures__', 'resultPlain.txt')).toString().trim();
-
-  expect(genDiff(filepath1, filepath2, 'plain')).toBe(expected);
-});
-
-test('json format', () => {
-  const filepath1 = join(__dirname, '__fixtures__', 'file1.yml');
-  const filepath2 = join(__dirname, '__fixtures__', 'file2.yaml');
-
-  const expected = readFileSync(join(__dirname, '__fixtures__', 'resultJson.json')).toString().trim();
-
-  expect(genDiff(filepath1, filepath2, 'json')).toBe(expected);
+test.each([
+  {
+    filepath1: getFullPath('file1.json'),
+    filepath2: getFullPath('file2.json'),
+    format: 'stylish',
+    expected: readFileSync(getFullPath('resultStylish.txt')).toString().trim(),
+  },
+  {
+    filepath1: getFullPath('file1.yml'),
+    filepath2: getFullPath('file2.yaml'),
+    format: 'stylish',
+    expected: readFileSync(getFullPath('resultStylish.txt')).toString().trim(),
+  },
+  {
+    filepath1: getFullPath('file1.yml'),
+    filepath2: getFullPath('file2.yaml'),
+    format: 'plain',
+    expected: readFileSync(getFullPath('resultPlain.txt')).toString().trim(),
+  },
+  {
+    filepath1: getFullPath('file1.yml'),
+    filepath2: getFullPath('file2.yaml'),
+    format: 'json',
+    expected: readFileSync(getFullPath('resultJson.json')).toString().trim(),
+  },
+])('genDiff($filepath1, $filepath2, $format)', ({
+  filepath1, filepath2, format, expected,
+}) => {
+  expect(genDiff(filepath1, filepath2, format)).toBe(expected);
 });
 
 test('invalid file paths', () => {
-  const filepath = join(__dirname, '__fixtures__', 'file1.json');
+  const filepath = getFullPath('file1.json');
 
   expect(() => genDiff('./invalid/path/file.json', filepath))
     .toThrowError('<filepath1> value "./invalid/path/file.json" is incorrect.');
