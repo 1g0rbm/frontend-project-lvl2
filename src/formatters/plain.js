@@ -24,15 +24,15 @@ const format = (path, { value, type }) => {
 };
 
 export default (ast) => {
-  const iter = (tree, path = null) => (
+  const iter = (tree, path = []) => (
     tree
       .map((node) => {
-        const fieldPath = path ? `${path}.${node.name}` : node.name;
+        const newPath = [...path, node.name];
         if (node.type === 'tree') {
-          return iter(node.children, fieldPath).join('\n');
+          return iter(node.children, newPath).join('\n');
         }
 
-        return format(fieldPath, node);
+        return format(newPath.join('.'), node);
       })
       .filter((line) => line !== null)
   );
