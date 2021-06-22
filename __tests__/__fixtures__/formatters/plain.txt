@@ -1,0 +1,5 @@
+Property 'b' was removed
+Property 'c.d' was removed
+Property 'c.e' was updated. From 'EE' to 'DD'
+Property 'c.f' was added with value: 'FF'
+Property 'g' was added with value: 'GG'

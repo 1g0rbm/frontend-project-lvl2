@@ -1,0 +1,41 @@
+[
+    {
+      "name": "a",
+      "type": "unchanged",
+      "value": "AA"
+    },
+    {
+      "name": "b",
+      "type": "removed",
+      "value": "BB"
+    },
+    {
+      "name": "c",
+      "type": "tree",
+      "children": [
+        {
+          "name": "d",
+          "type": "removed",
+          "value": "DD"
+        },
+        {
+          "name": "e",
+          "type": "changed",
+          "value": [
+            "EE",
+            "DD"
+          ]
+        },
+        {
+          "name": "f",
+          "type": "added",
+          "value": "FF"
+        }
+      ]
+    },
+    {
+      "name": "g",
+      "type": "added",
+      "value": "GG"
+    }
+  ]
