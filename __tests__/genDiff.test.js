@@ -44,8 +44,8 @@ test('invalid file paths', () => {
   const filepath = getFullPath('file1.json');
 
   expect(() => genDiff('./invalid/path/file.json', filepath))
-    .toThrowError('<filepath1> value "./invalid/path/file.json" is incorrect.');
+    .toThrowError('Filepath "./invalid/path/file.json" is incorrect.');
 
   expect(() => genDiff(filepath, './invalid/path/file.json'))
-    .toThrowError('<filepath2> value "./invalid/path/file.json" is incorrect.');
+    .toThrowError('Filepath "./invalid/path/file.json" is incorrect.');
 });
