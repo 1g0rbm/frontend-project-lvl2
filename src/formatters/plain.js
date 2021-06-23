@@ -23,19 +23,17 @@ const format = (path, { value, type }) => {
   return _.get(typeFormatters, type)();
 };
 
-export default (ast) => {
-  const iter = (tree, path = []) => (
-    tree
-      .map((node) => {
-        const newPath = [...path, node.name];
-        if (node.type === 'tree') {
-          return iter(node.children, newPath).join('\n');
-        }
+const build = (tree, path = []) => (
+  tree
+    .map((node) => {
+      const newPath = [...path, node.name];
+      if (node.type === 'tree') {
+        return build(node.children, newPath).join('\n');
+      }
 
-        return format(newPath.join('.'), node);
-      })
-      .filter((line) => line !== null)
-  );
+      return format(newPath.join('.'), node);
+    })
+    .filter((line) => line !== null)
+);
 
-  return iter(ast).join('\n');
-};
+export default (ast) => build(ast).join('\n');

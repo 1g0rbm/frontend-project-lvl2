@@ -31,18 +31,16 @@ const format = ({ name, value, type }, lvl) => {
   return _.get(typeFormatters, type)();
 };
 
-export default (ast) => {
-  const iter = (tree, lvl) => (
-    tree.map((node) => {
-      if (node.type === 'tree') {
-        const treeValue = `${iter(node.children, lvl + 1)}`;
-        return `${getLvlIndent(lvl)}${node.name}: {\n${treeValue}\n${getLvlIndent(lvl)}}`;
-      }
+const build = (tree, lvl) => (
+  tree.map((node) => {
+    if (node.type === 'tree') {
+      const treeValue = build(node.children, lvl + 1);
+      return `${getLvlIndent(lvl)}${node.name}: {\n${treeValue}\n${getLvlIndent(lvl)}}`;
+    }
 
-      return format(node, lvl);
-    })
-      .join('\n')
-  );
+    return format(node, lvl);
+  })
+    .join('\n')
+);
 
-  return `{\n${iter(ast, 1)}\n}`;
-};
+export default (ast) => `{\n${build(ast, 1)}\n}`;
