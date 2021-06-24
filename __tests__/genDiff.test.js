@@ -11,33 +11,37 @@ const getFullPath = (fileName) => join(__dirname, '__fixtures__', fileName);
 
 test.each([
   {
-    filepath1: getFullPath('file1.json'),
-    filepath2: getFullPath('file2.json'),
+    filepath1: 'file1.json',
+    filepath2: 'file2.json',
     format: 'stylish',
-    expected: readFileSync(getFullPath('resultStylish.txt')).toString().trim(),
+    expected: 'resultStylish.txt',
   },
   {
-    filepath1: getFullPath('file1.yml'),
-    filepath2: getFullPath('file2.yaml'),
+    filepath1: 'file1.yml',
+    filepath2: 'file2.yaml',
     format: 'stylish',
-    expected: readFileSync(getFullPath('resultStylish.txt')).toString().trim(),
+    expected: 'resultStylish.txt',
   },
   {
-    filepath1: getFullPath('file1.yml'),
-    filepath2: getFullPath('file2.yaml'),
+    filepath1: 'file1.yml',
+    filepath2: 'file2.yaml',
     format: 'plain',
-    expected: readFileSync(getFullPath('resultPlain.txt')).toString().trim(),
+    expected: 'resultPlain.txt',
   },
   {
-    filepath1: getFullPath('file1.yml'),
-    filepath2: getFullPath('file2.yaml'),
+    filepath1: 'file1.yml',
+    filepath2: 'file2.yaml',
     format: 'json',
-    expected: readFileSync(getFullPath('resultJson.json')).toString().trim(),
+    expected: 'resultJson.json',
   },
 ])('genDiff($filepath1, $filepath2, $format)', ({
   filepath1, filepath2, format, expected,
 }) => {
-  expect(genDiff(filepath1, filepath2, format)).toBe(expected);
+  const normalizePath1 = getFullPath(filepath1);
+  const normalizePath2 = getFullPath(filepath2);
+  const normalizeExpected = readFileSync(getFullPath(expected)).toString().trim();
+
+  expect(genDiff(normalizePath1, normalizePath2, format)).toBe(normalizeExpected);
 });
 
 test('invalid file paths', () => {

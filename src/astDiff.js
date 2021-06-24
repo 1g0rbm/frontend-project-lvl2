@@ -13,7 +13,7 @@ const makeNode = (name, value, type) => {
 const makeChildrenNode = (name, children) => ({ name, children, type: 'tree' });
 
 const createKeysMap = (firstTree, secondTree) => (
-  _.orderBy(_.union(Object.keys(firstTree), Object.keys(secondTree))).map((key) => key)
+  _.orderBy(_.union(Object.keys(firstTree), Object.keys(secondTree)))
 );
 
 const objDoesNotHaveKey = (key, obj) => !_.has(obj, key);
