@@ -1,14 +1,14 @@
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import { readFileSync } from 'fs';
 import { test, expect } from '@jest/globals';
+import { getFileContent } from '../src/file.js';
 import buildDiffAst from '../src/astDiff';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const getFullPath = (fileName) => join(__dirname, '__fixtures__', fileName);
-const getData = (fileName) => JSON.parse(readFileSync(getFullPath(fileName)).toString());
+const getData = (fileName) => JSON.parse(getFileContent(getFullPath(fileName)));
 
 test('makeNode test', () => {
   const first = getData('/astDiff/firstObject.json');

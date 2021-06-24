@@ -1,7 +1,7 @@
 import { expect, test } from '@jest/globals';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import { readFileSync } from 'fs';
+import { getFileContent } from '../src/file.js';
 import genDiff from '../index.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -39,7 +39,7 @@ test.each([
 }) => {
   const normalizePath1 = getFullPath(filepath1);
   const normalizePath2 = getFullPath(filepath2);
-  const normalizeExpected = readFileSync(getFullPath(expected)).toString().trim();
+  const normalizeExpected = getFileContent(getFullPath(expected));
 
   expect(genDiff(normalizePath1, normalizePath2, format)).toBe(normalizeExpected);
 });
