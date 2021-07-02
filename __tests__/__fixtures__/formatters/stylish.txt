@@ -1,0 +1,11 @@
+{
+    a: AA
+  - b: BB
+    c: {
+      - d: DD
+      - e: EE
+      + e: DD
+      + f: FF
+    }
+  + g: GG
+}

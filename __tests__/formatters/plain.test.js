@@ -4,6 +4,7 @@ import { test, expect } from '@jest/globals';
 import { readFileSync } from 'fs';
 import buildDiffAst from '../../src/astDiff';
 import plain from '../../src/formatters/plain';
+import getFileContent from '../helpers/loadContent';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -16,7 +17,7 @@ test('plain formatter test', () => {
   const second = getData('/astDiff/secondObject.json');
 
   const ast = buildDiffAst(first, second);
-  const expected = readFileSync(getFullPath('/formatters/plain.txt')).toString().trim();
+  const expected = getFileContent(getFullPath('/formatters/plain.txt'));
 
   expect(plain(ast)).toBe(expected);
 });
