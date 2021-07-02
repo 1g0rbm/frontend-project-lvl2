@@ -44,6 +44,14 @@ test.each([
   expect(genDiff(normalizePath1, normalizePath2, format)).toBe(normalizeExpected);
 });
 
+test('default formatter shuold be stylish', () => {
+  const normalizePath1 = getFullPath('file1.yml');
+  const normalizePath2 = getFullPath('file2.yaml');
+  const normalizeExpected = getFileContent(getFullPath('resultStylish.txt'));
+
+  expect(genDiff(normalizePath1, normalizePath2)).toBe(normalizeExpected);
+});
+
 test('invalid file paths', () => {
   const filepath = getFullPath('file1.json');
 
