@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import { test, expect } from '@jest/globals';
-import { getFileContent } from '../src/file.js';
+import getFileContent from './helpers/loadContent';
 import buildDiffAst from '../src/astDiff';
 
 const __filename = fileURLToPath(import.meta.url);

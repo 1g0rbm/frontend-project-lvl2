@@ -11,7 +11,7 @@
     "node": ">=14"
   },
   "scripts": {
-    "test": "npx jest --bail"
+    "test": "npx jest"
   },
   "repository": {
     "type": "git",
@@ -36,5 +36,9 @@
     "eslint-plugin-jest": "^24.3.6",
     "jest": "^27.0.3",
     "jest-cli": "^27.0.3"
+  },
+  "jest": {
+    "bail": 1,
+    "modulePathIgnorePatterns": ["helpers"]
   }
 }
